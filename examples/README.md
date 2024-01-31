@@ -48,7 +48,7 @@ This can also be done by pressing the lightning in the bottom left:
 
 ![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/910cd7d4-4c80-4e2c-b670-c47eb68a4250)
 
-Now examples should be showing on the LILYGO T-Display LCD screen.
+Now the examples should be showing on the LILYGO T-Display LCD screen.
 
 
 
