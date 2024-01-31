@@ -1,8 +1,10 @@
 # LILYGO-T-Display-Graphics #
 A small graphics utility library for the ESP32 with a LILYGO T-Display LCD screen. 
 The library is written in C and implemented using the Espressif Iot Development Framework (ESP-IDF).
-
 Feel free to contribute yourself.
+
+Example:
+![bil](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/759e2824-a96d-4c4b-a519-98a54d65300a)
 
 # Installation and usage guide #
 The following is a guide on how to get the examples up and running. 
