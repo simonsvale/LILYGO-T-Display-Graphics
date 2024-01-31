@@ -33,6 +33,7 @@ This is done by pressing the plug in the bottom left:
 ![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/25364882-a503-48cf-bc76-00f9c38665d3)
 
 This will make a drop down menu appear in the top middle of Visual Studio Code. Select the port the esp32 is connected to:
+
 ![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/6877c759-fe19-4c61-b311-fef1ab994d4c)
 
 (In this case it was COM as i use windows, but it may show up as tty on linux or usbserial on other machines)
