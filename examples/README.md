@@ -1,14 +1,59 @@
-Step 1. Install the ESP-IDF Visual Studio code extension.
+### Step 1. ###
+Install the ESP-IDF Visual Studio Code extension.
 
-Step 2. Open the 'examples' folder in Visual Studio code.
 
-Step 3. Build the project by pressing ctrl + e, then press b.
+### Step 2. ###
+Open the 'examples' folder in Visual Studio Code.
 
-Step 4. Select port to use.
 
-Step 5. Set the device target. 
-	Pick: examples workspace. 
-	Pick: esp32.
-	Pick: custom board.
+### Step 3. ###
+Build the project by pressing ctrl + e, then press b.
 
- Step 6. Flash the code onto the ESP32 by pressing: ctrl + e, then press f.
+This can also be done by pressing the cylinder in the bottom left:
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/c6b82dff-7455-440d-9b28-dc46c5078c8a)
+
+
+### Step 4. ###
+Plug your esp32 into your computer and select the port to use.
+
+This is done by pressing the plug in the bottom left:
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/25364882-a503-48cf-bc76-00f9c38665d3)
+
+This will make a drop down menu appear in the top middle of Visual Studio Code. Select the port the esp32 is connected to:
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/6877c759-fe19-4c61-b311-fef1ab994d4c)
+
+(In this case it was COM as i use windows, but it may show up as tty on linux or usbserial on other machines)
+
+### Step 5. ###
+Set the device target, by pressing the circuit board in the bottom left:
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/f1f05e7c-cb66-45e0-aab8-32f5f5d04724)
+
+A dropdown menu will now appear, pick: examples workspace:
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/698a74f3-3ebe-45c7-831b-a99f9b4af587)
+
+Now pick, esp32:
+
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/1c8a7475-4bd6-49eb-ba1b-bcbc5b31cdd0)
+
+
+Now pick, Custom board:
+
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/516f44ed-3e1e-47b7-9cae-82dc5e305a3b)
+
+
+### Step 6. ###
+Flash the code onto the ESP32 by pressing: ctrl + e, then press f.
+
+This can also be done by pressing the lightning in the bottom left:
+
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/910cd7d4-4c80-4e2c-b670-c47eb68a4250)
+
+Now examples should be showing on the LILYGO T-Display LCD screen.
+
+
+
+
+
+
+
+ 
