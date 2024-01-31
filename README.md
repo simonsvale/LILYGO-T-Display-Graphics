@@ -20,13 +20,6 @@ Open the 'examples' folder in Visual Studio Code.
 
 
 ## Step 3. ##
-Build the project by pressing ctrl + e, then press b.
-
-This can also be done by pressing the cylinder in the bottom left:
-![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/c6b82dff-7455-440d-9b28-dc46c5078c8a)
-
-
-## Step 4. ##
 Plug your esp32 into your computer and select the port to use.
 
 This is done by pressing the plug in the bottom left:
@@ -38,7 +31,7 @@ This will make a drop down menu appear in the top middle of Visual Studio Code. 
 
 (In this case it was COM as i use windows, but it may show up as tty on linux or usbserial on other machines)
 
-## Step 5. ##
+## Step 4. ##
 Set the device target, by pressing the circuit board in the bottom left:
 ![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/f1f05e7c-cb66-45e0-aab8-32f5f5d04724)
 
@@ -53,6 +46,13 @@ Now pick, esp32:
 Now pick, Custom board:
 
 ![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/516f44ed-3e1e-47b7-9cae-82dc5e305a3b)
+
+
+## Step 5. ##
+Build the project by pressing ctrl + e, then press b.
+
+This can also be done by pressing the cylinder in the bottom left:
+![image](https://github.com/simonsvale/LILYGO-T-Display-Graphics/assets/8054877/c6b82dff-7455-440d-9b28-dc46c5078c8a)
 
 
 ## Step 6. ##
