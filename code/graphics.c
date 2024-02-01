@@ -89,7 +89,7 @@ int fill_rect(esp_lcd_panel_handle_t panel_handle, draw_t draw_params, uint16_t 
     // Since we do not know the size of the color buffer, before execution we allocate memory for it.
     uint16_t *color_buffer = NULL;
 
-    color_buffer = malloc(color_buffer_size);
+    color_buffer = (uint16_t *)malloc(color_buffer_size);
     if (color_buffer == NULL)
     {
         ESP_LOGE(TAG_DISPLAY, "Memory could not be allocated to buffer.");
@@ -97,7 +97,11 @@ int fill_rect(esp_lcd_panel_handle_t panel_handle, draw_t draw_params, uint16_t 
     }
 
     // Set the correct color:
-    memset(color_buffer, BGR_color, color_buffer_size);
+    // NOTE: Cannot be done with memset, as it only sets a single byte and not two bytes, which is the size of the uint16_t color buffer.
+    for (int i = 0; i < draw_params.image_size_x * draw_params.image_size_y; ++i)
+    {
+        color_buffer[i] = BGR_color;
+    }
 
     // Draw call to the LCD.
     esp_lcd_panel_draw_bitmap(panel_handle, 
@@ -257,10 +261,13 @@ int draw_bgr_image(esp_lcd_panel_handle_t panel_handle, draw_t draw_params, uint
 
 void RGB_TO_BGR(uint16_t *image_buffer, int buffer_size)
 {
+    uint16_t aux_buffer;
+
     // Go through every index and convert the RGB value to BGR format. Since this is the format the TTGO T-Display supports.
     for (size_t i = 0; i < buffer_size; ++i)
     {
-        image_buffer[i] = COLOR_SWAP(image_buffer[i]); 
+        aux_buffer = image_buffer[i];
+        image_buffer[i] = COLOR_SWAP(aux_buffer); 
     }
 }
 
@@ -313,7 +320,7 @@ uint16_t *scale_image(draw_t draw_params, uint16_t *image_buffer)
 }
 
 
-uint16_t *get_LASET_bitmap_letter_font(glyph_t *glyph_params, uint16_t letter_color, uint16_t background_color)
+uint16_t *get_bitmap_letter_font(glyph_t *glyph_params, uint16_t letter_color, uint16_t background_color)
 {
     // Set relvant glyph parameters.
     glyph_params->glyph_size_x = 5;
@@ -322,11 +329,11 @@ uint16_t *get_LASET_bitmap_letter_font(glyph_t *glyph_params, uint16_t letter_co
     glyph_params->ASCII_offset = 97;
 
     // Allocate memory for bitmap font.
-    uint16_t *LASET_font = NULL;
-    LASET_font = (uint16_t *)malloc( (glyph_params->glyph_size_x * glyph_params->glyph_size_y) * glyph_params->glyph_amount * sizeof(uint16_t) );
-    if (LASET_font == NULL)
+    uint16_t *font = NULL;
+    font = (uint16_t *)malloc( (glyph_params->glyph_size_x * glyph_params->glyph_size_y) * glyph_params->glyph_amount * sizeof(uint16_t) );
+    if (font == NULL)
     {
-        ESP_LOGE(TAG_DISPLAY, "Memory could not be allocated in get_LASET_bitmap_letter_font().");
+        ESP_LOGE(TAG_DISPLAY, "Memory could not be allocated in get_bitmap_letter_font().");
         return NULL;
     }
 
@@ -367,7 +374,7 @@ uint16_t *get_LASET_bitmap_letter_font(glyph_t *glyph_params, uint16_t letter_co
     };
 
     // memcpy the glyphs into the ptr.
-    memcpy(LASET_font, 
+    memcpy(font, 
         letter_buffer, 
         glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount * sizeof(uint16_t)
     );
@@ -380,28 +387,28 @@ uint16_t *get_LASET_bitmap_letter_font(glyph_t *glyph_params, uint16_t letter_co
     colors.COLOR_ID_1 = 1;
     
     // Convert int array to uint16_t color array.
-    int_to_color_array(colors, LASET_font, glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount);
+    int_to_color_array(colors, font, glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount);
 
     // Convert from RGB to BGR.
-    RGB_TO_BGR(LASET_font, glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount);
+    RGB_TO_BGR(font, glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount);
 
 
     // Since we cannot return arrays, we allocate memory for an array on the heap and return the pointer to that array.
-    return LASET_font;
+    return font;
 }
 
-uint16_t *get_LASET_bitmap_numbers_font(glyph_t *glyph_params, uint16_t number_color, uint16_t background_color)
+uint16_t *get_bitmap_numbers_font(glyph_t *glyph_params, uint16_t number_color, uint16_t background_color)
 {
     glyph_params->glyph_size_x = 3;
     glyph_params->glyph_size_y = 5;
     glyph_params->glyph_amount = 18;
     glyph_params->ASCII_offset = 40;
 
-    uint16_t *LASET_font = NULL;
-    LASET_font = (uint16_t *)malloc( (glyph_params->glyph_size_x * glyph_params->glyph_size_y) * glyph_params->glyph_amount * sizeof(uint16_t) );
-    if (LASET_font == NULL)
+    uint16_t *font = NULL;
+    font = (uint16_t *)malloc( (glyph_params->glyph_size_x * glyph_params->glyph_size_y) * glyph_params->glyph_amount * sizeof(uint16_t) );
+    if (font == NULL)
     {
-        ESP_LOGE(TAG_DISPLAY, "Memory could not be allocated in get_LASET_bitmap_letter_font().");
+        ESP_LOGE(TAG_DISPLAY, "Memory could not be allocated in get_bitmap_letter_font().");
         return NULL;
     }
 
@@ -428,7 +435,7 @@ uint16_t *get_LASET_bitmap_numbers_font(glyph_t *glyph_params, uint16_t number_c
     };
 
     // memcpy the glyphs into the ptr.
-    memcpy(LASET_font, 
+    memcpy(font, 
         number_buffer, 
         glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount * sizeof(uint16_t)
     );
@@ -441,12 +448,12 @@ uint16_t *get_LASET_bitmap_numbers_font(glyph_t *glyph_params, uint16_t number_c
     colors.COLOR_ID_1 = 1;
     
     // Convert int array to uint16_t color array.
-    int_to_color_array(colors, LASET_font, glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount);
+    int_to_color_array(colors, font, glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount);
 
     // Convert from RGB to BGR.
-    RGB_TO_BGR(LASET_font, glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount);
+    RGB_TO_BGR(font, glyph_params->glyph_size_x * glyph_params->glyph_size_y * glyph_params->glyph_amount);
 
-    return LASET_font;
+    return font;
 }
 
 

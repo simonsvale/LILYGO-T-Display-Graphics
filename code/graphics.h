@@ -5,7 +5,6 @@
 #include "esp_system.h"
 #include "esp_log.h"
 
-// For some reason memset is located here.
 #include <string.h>
 
 // LCD headers
@@ -16,6 +15,7 @@
 #include "driver/spi_master.h"
 #include "driver/gpio.h"
 
+// For vTaskDelay();
 #include <freertos/semphr.h>
 
 
@@ -62,15 +62,14 @@
 #define LCD_PINK 0xF81F
 #define LCD_PURPLE 0x981F
 
-
 #define LCD_LIGHT_PURPLE 0xC39E
-#define LCD_AAU_BLUE 0x318F
+
 
 // Want to choose your own color?
 // https://rgbcolorpicker.com/565
 
 // Header tag
-#define TAG_DISPLAY "LASET_DISP"
+#define TAG_DISPLAY "ESP_GRAPHICS"
 
 // Redefinitions for return readability.
 #define DRAW_SUCCESS 0
@@ -112,8 +111,6 @@ typedef struct {
     short COLOR_ID_7;
 } color_def_t;
 
-// Convert image to array of indices containing colors.
-// https://notisrac.github.io/FileToCArray/
 
 // Offset stucture.
 typedef struct {
@@ -141,7 +138,7 @@ typedef struct {
 // This can be prevented by cutting all power to the ESP32 for a few seconds.
 
 
-// Setups the functionality for writing to the display, such as pinouts.
+// Setups the functionality for writing to the display, such as pin outs.
 void setup_display(esp_lcd_panel_handle_t *panel_handle);
 
 
@@ -166,11 +163,11 @@ void RGB_TO_BGR(uint16_t *image_buffer, int buffer_size);
 // Scale an image 1 to n, on x and y axis. Returns a pointer to the new scaled image buffer, else returns NULL ptr.
 uint16_t *scale_image(draw_t draw_params, uint16_t *image_buffer);
 
-// Return a pointer to the LASET bitmap font, containing the english alphabet.
-uint16_t *get_LASET_bitmap_letter_font(glyph_t *glyph_params, uint16_t letter_color, uint16_t background_color);
+// Return a pointer to the bitmap font, containing the english alphabet.
+uint16_t *get_bitmap_letter_font(glyph_t *glyph_params, uint16_t letter_color, uint16_t background_color);
 
-// Return a pointer to the LASET bitmap numbers font, containing numbers from 0 - 9.
-uint16_t *get_LASET_bitmap_numbers_font(glyph_t *glyph_params, uint16_t number_color, uint16_t background_color);
+// Return a pointer to the bitmap numbers font, containing numbers from 0 - 9.
+uint16_t *get_bitmap_numbers_font(glyph_t *glyph_params, uint16_t number_color, uint16_t background_color);
 
 // Draws text from a char buffer, only letters!
 int draw_glyphs(esp_lcd_panel_handle_t panel_handle, glyph_t text_params, uint16_t *glyph_font , char *text_buffer, unsigned int buffer_size);
